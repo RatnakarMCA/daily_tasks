@@ -1,0 +1,5 @@
+WAF Tasks: 
+
+Attach WAF Web ACL to ALB
+Add rule to block traffic from a specific IP (laptop ip)
+Test application access before / after WAF rules
