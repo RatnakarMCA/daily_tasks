@@ -15,12 +15,6 @@ Install Docker on your system.
 
 Part 2: Create a Simple Application
 
-Choose one:
-
-A simple Python Flask app
-
-A Node.js app
-
 A static HTML website using Nginx
 
 The application must:
@@ -65,9 +59,7 @@ Access the application in a browser.
 
 Part 5: Docker Commands Practice
 
-
 📤 Submission
-
 
 Source code
 
