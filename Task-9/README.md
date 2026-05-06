@@ -107,6 +107,7 @@ ________________________________________
 ✅ Expected Final State
 
 Terraform state should contain:
+
 •	aws_instance.web_server[0] (existing instance)
 
 •	aws_instance.web_server[1]
