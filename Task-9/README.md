@@ -15,12 +15,14 @@ Terraform must be told that the existing instance should become:
 •	Address change: aws_instance.web_server ➜ aws_instance.web_server[0]
 ________________________________________
 🎯 Objectives
+
 •	Modify Terraform configuration to use count = 5
 •	Preserve the existing instance as the first instance ([0])
 •	Prevent Terraform from destroying and recreating the existing resource
 •	Perform state migration using Terraform state commands (or moved block)
 ________________________________________
 ✅ Why State Migration is Required
+
 If you simply add count = 5 and run terraform apply, Terraform will interpret:
 •	Old resource: aws_instance.web_server as missing ➜ destroy
 •	New resources: aws_instance.web_server[0..4] as new ➜ create
@@ -83,6 +85,7 @@ Terraform will:
 ________________________________________
 
 ⭐ Alternative (Recommended): Using moved Block (Terraform v1.1+)
+
 Instead of running the CLI command manually, you can document the migration in code.
 Add this to your Terraform configuration:
 moved {
@@ -105,7 +108,11 @@ ________________________________________
 
 Terraform state should contain:
 •	aws_instance.web_server[0] (existing instance)
+
 •	aws_instance.web_server[1]
+
 •	aws_instance.web_server[2]
+
 •	aws_instance.web_server[3]
+
 •	aws_instance.web_server[4]
