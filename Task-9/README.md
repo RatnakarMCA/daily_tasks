@@ -11,7 +11,9 @@ Currently, an infrastructure instance is provisioned using Terraform as a single
 To achieve this, Terraform state file migration is required so the existing instance is mapped to count.index = 0.
 
 Terraform must be told that the existing instance should become:
+
 •	count.index = 0
+
 •	Address change: aws_instance.web_server ➜ aws_instance.web_server[0]
 ________________________________________
 🎯 Objectives
