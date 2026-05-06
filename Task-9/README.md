@@ -19,16 +19,22 @@ ________________________________________
 🎯 Objectives
 
 •	Modify Terraform configuration to use count = 5
+
 •	Preserve the existing instance as the first instance ([0])
+
 •	Prevent Terraform from destroying and recreating the existing resource
+
 •	Perform state migration using Terraform state commands (or moved block)
 ________________________________________
 ✅ Why State Migration is Required
 
 If you simply add count = 5 and run terraform apply, Terraform will interpret:
+
 •	Old resource: aws_instance.web_server as missing ➜ destroy
+
 •	New resources: aws_instance.web_server[0..4] as new ➜ create
 That would cause downtime and replacement of the existing server.
+
 So, we must migrate state so Terraform understands:
 The existing instance is now aws_instance.web_server[0].
 ________________________________________
@@ -37,21 +43,29 @@ ________________________________________
 Before (Current State)
 
 resource "aws_instance" "web_server" {
+
   ami           = "ami-07ff62358b87c7116"
+
   instance_type = "t3.small"
 
   tags = {
+  
     Name = "web-server"
   }
+
 }
 After (New State: Add count = 5)
 
 resource "aws_instance" "web_server" {
+
   count         = 5
+  
   ami           = "ami-07ff62358b87c7116"
+  
   instance_type = "t3.small"
 
   tags = {
+  
     Name = "web-server-${count.index}"
   }
 }
