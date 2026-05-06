@@ -29,6 +29,7 @@ So, we must migrate state so Terraform understands:
 The existing instance is now aws_instance.web_server[0].
 ________________________________________
 🛠️ Phase 1: Code Refactoring
+
 Before (Current State)
 resource "aws_instance" "web_server" {
   ami           = "ami-07ff62358b87c7116"
@@ -51,6 +52,7 @@ resource "aws_instance" "web_server" {
 ✅ Best practice: Use count.index in the Name tag so each instance has a unique name.
 ________________________________________
 🔁 Phase 2: State Migration (CLI Method)
+
 ⚠️ Do NOT run terraform apply yet.
 Step 1: Check what Terraform currently tracks
 terraform state list
@@ -64,6 +66,7 @@ What this does
 •	Keeps the existing EC2 instance intact
 ________________________________________
 🔍 Phase 3: Verification
+
 Run:
 terraform plan
 Expected plan (typical):
@@ -72,11 +75,13 @@ You may see 1 to change if tags were updated for the existing instance — this 
 ✅ Most important: No resources should be destroyed.
 ________________________________________
 🚀 Phase 4: Apply Changes
+
 terraform apply
 Terraform will:
 •	Keep the existing instance as [0]
 •	Create 4 additional instances: [1], [2], [3], [4]
 ________________________________________
+
 ⭐ Alternative (Recommended): Using moved Block (Terraform v1.1+)
 Instead of running the CLI command manually, you can document the migration in code.
 Add this to your Terraform configuration:
@@ -90,12 +95,14 @@ terraform apply
 Terraform will automatically understand the resource address change and preserve the existing instance.
 ________________________________________
 🧯 Safety Best Practices (Highly Recommended)
+
 Backup local state (if using local backend)
 cp terraform.tfstate terraform.tfstate.backup
 Backup state even for remote backends (S3, etc.)
 terraform state pull > backup.tfstate
 ________________________________________
 ✅ Expected Final State
+
 Terraform state should contain:
 •	aws_instance.web_server[0] (existing instance)
 •	aws_instance.web_server[1]
