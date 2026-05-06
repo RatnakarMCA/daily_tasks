@@ -35,6 +35,7 @@ ________________________________________
 🛠️ Phase 1: Code Refactoring
 
 Before (Current State)
+
 resource "aws_instance" "web_server" {
   ami           = "ami-07ff62358b87c7116"
   instance_type = "t3.small"
@@ -44,6 +45,7 @@ resource "aws_instance" "web_server" {
   }
 }
 After (New State: Add count = 5)
+
 resource "aws_instance" "web_server" {
   count         = 5
   ami           = "ami-07ff62358b87c7116"
@@ -53,11 +55,13 @@ resource "aws_instance" "web_server" {
     Name = "web-server-${count.index}"
   }
 }
+
 ✅ Best practice: Use count.index in the Name tag so each instance has a unique name.
 ________________________________________
 🔁 Phase 2: State Migration (CLI Method)
 
 ⚠️ Do NOT run terraform apply yet.
+
 Step 1: Check what Terraform currently tracks
 terraform state list
 Expected:
